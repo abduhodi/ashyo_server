@@ -1,0 +1,26 @@
+~~~~~~~~~ Main step ~~~~~~~~
+
+1.1. Enter the link Abduhodi sent you
+1.2. Click the "fork" and create your own repository
+1.3. Copy the SSH code
+1.4. Paste it to your terminal after "git clone "
+1.5. Make your own changes
+1.6. On your VS code, enter git (source control), add your decription and click on commit
+
+~~~~~~~ Before adding changes first check updates ~~~~~
+
+2.1. On your VS code terminal, write "git remote -v"
+2.2. There will be something like this:
+    origin  git@github.com:"yourGitHubUsername"/ashyo_server.git (fetch)
+    origin  git@github.com:"yourGitHubUsername"/ashyo_server.git (push)
+2.3. Copy one of them and then, write "git remote add upstream git@github.com:abduhodi/ashyo_server.git"
+    instead of "yourGitHubUsername" write "abduhodi"
+2.4. Write "git fetch upstream"
+2.5. On your VS code, enter git (source control), click on three dots and choose Pull/Push and choose Pull from
+2.6. There will be input area. Write there "upstream" (later, you will choose it), then "upstream/master(later, you will choose it)
+2.7. Now, you have latest updated team project
+
+~~~~~~~ To make changes again, repeat steps 1.5 and 1.6 ~~~~~~~
+
+
+~~~~~~~ To get latest updates again, repeat steps 2.5 and 2.6 ~~~~~~~~
