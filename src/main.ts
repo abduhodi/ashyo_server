@@ -7,5 +7,3 @@ async function start() {
   await app.listen(port, () => console.log('server listening on port ' + port));
 }
 start();
-console.log('hello');
-//start
