@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+import { CategoryModule } from './category/category.module';
 
 @Module({
-  imports: [],
+  imports: [CategoryModule],
   controllers: [],
   providers: [],
 })
