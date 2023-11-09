@@ -21,3 +21,5 @@ model Category {
   created_at      DateTime   @default(now())
   updated_at      DateTime   @updatedAt
 }
+
+// Shu yerda sizga berilgan modellarning yarating
