@@ -9,7 +9,7 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
+ 
 model Category {
   id              Int        @id @default(autoincrement())
   name            String
@@ -20,6 +20,42 @@ model Category {
   position        Int?
   created_at      DateTime   @default(now())
   updated_at      DateTime   @updatedAt
+
+  brands Category_brand[]
+
+}
+
+model Brand{
+  id              Int        @id @default(autoincrement())
+  name            String
+  description     String
+  position        Int
+  logo_url     String
+  created_at      DateTime   @default(now())
+  updated_at      DateTime   @updatedAt
+
+  categories Category_brand[]
+}
+
+model Product_model{
+  id              Int        @id @default(autoincrement())
+  name            String
+  description     String
+  brand_id         Int 
+  created_at      DateTime   @default(now()) 
+  updated_at      DateTime   @updatedAt
+}
+
+
+model Category_brand{
+  id              Int        @id @default(autoincrement())
+  category_id            Int?
+  brand_id     Int?
+  created_at      DateTime   @default(now())
+
+  brand Brand? @relation(fields: [brand_id], references: [id])
+  category Category? @relation(fields: [category_id], references: [id])
 }
 
 // Shu yerda sizga berilgan modellarning yarating
+ 
