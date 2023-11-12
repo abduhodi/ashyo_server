@@ -21,7 +21,7 @@ model Category {
   created_at      DateTime   @default(now())
   updated_at      DateTime   @updatedAt
 
-  brands           Category_Brand[]
+  brands           Category_brand[]
   attribute_groups Attribute_Group[]
 }
 
@@ -34,26 +34,29 @@ model Brand {
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 
-  categories Category_Brand[]
+  categories Category_brand[]
 }
 
-model Product_Model {
+model Product_model {
   id          Int      @id @default(autoincrement())
   name        String
   description String
   brand_id    Int
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
+
+  category_brand Category_brand? @relation(fields: [brand_id], references: [id])
 }
 
-model Category_Brand {
+model Category_brand {
   id          Int      @id @default(autoincrement())
   category_id Int?
   brand_id    Int?
   created_at  DateTime @default(now())
 
-  brand    Brand?    @relation(fields: [brand_id], references: [id])
-  category Category? @relation(fields: [category_id], references: [id])
+  brand          Brand?          @relation(fields: [brand_id], references: [id])
+  category       Category?       @relation(fields: [category_id], references: [id])
+  product_models Product_model[]
 }
 
 model Attribute_Group {

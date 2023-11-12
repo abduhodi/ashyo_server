@@ -1,25 +1,25 @@
 import { IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateAttributeGroupDto {
+export class CreateAttributeDto {
   @ApiProperty({
-    description: 'Name of the attribute group',
-    example: 'Example Memory',
+    description: 'Name of the attribute',
+    example: 'Example Color',
   })
   @IsNotEmpty()
   @IsString()
   name: string;
 
-  @ApiProperty({ description: 'Position of the attribute group', example: 1 })
+  @ApiProperty({ description: 'Position of the attribute', example: 1 })
   @IsOptional()
   @IsInt()
   position?: number = 1;
 
   @ApiProperty({
-    description: 'Category ID of the attribute group',
+    description: 'Attribute Group ID of the attribute',
     example: 123,
   })
   @IsNotEmpty()
   @IsInt()
-  category_id: number;
+  attribute_group_id: number;
 }
