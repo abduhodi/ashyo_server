@@ -57,5 +57,20 @@ model Category_brand{
   category Category? @relation(fields: [category_id], references: [id])
 }
 
+model Sale{
+  id              Int        @id @default(autoincrement())
+  start_date      String   
+  end_date      String   
+  percent            Int?
+  created_at      DateTime   @default(now()) 
+  updated_at      DateTime   @updatedAt
+}
+
+model Sale_model{
+  id              Int        @id @default(autoincrement())
+  model_id            Int?
+  sale_id            Int?
+}
+
 // Shu yerda sizga berilgan modellarning yarating
  
