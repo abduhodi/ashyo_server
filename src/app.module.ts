@@ -6,14 +6,21 @@ import { CategoryBrandModule } from './category_brand/category_brand.module';
 import { SaleModule } from './sale/sale.module';
 import { SaleModelModule } from './sale_model/sale_model.module';
 
+
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+    }),
     CategoryModule,
     BrandModule,
     ProductModelModule,
     CategoryBrandModule,
     SaleModule,
     SaleModelModule,
+    AttributeGroupModule,
+    AttributesModule,
+    ProductInfoModule,
   ],
   controllers: [],
   providers: [],

@@ -9,7 +9,7 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
- 
+
 model Category {
   id              Int        @id @default(autoincrement())
   name            String
@@ -21,40 +21,80 @@ model Category {
   created_at      DateTime   @default(now())
   updated_at      DateTime   @updatedAt
 
-  brands Category_brand[]
-
+  brands           Category_brand[]
+  attribute_groups Attribute_Group[]
 }
 
-model Brand{
-  id              Int        @id @default(autoincrement())
-  name            String
-  description     String
-  position        Int
-  logo_url     String
-  created_at      DateTime   @default(now())
-  updated_at      DateTime   @updatedAt
+model Brand {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  position    Int
+  logo_url    String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
   categories Category_brand[]
 }
 
-model Product_model{
-  id              Int        @id @default(autoincrement())
-  name            String
-  description     String
-  brand_id         Int 
-  created_at      DateTime   @default(now()) 
-  updated_at      DateTime   @updatedAt
+model Product_model {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  brand_id    Int
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  category_brand Category_brand? @relation(fields: [brand_id], references: [id])
 }
 
+model Category_brand {
+  id          Int      @id @default(autoincrement())
+  category_id Int?
+  brand_id    Int?
+  created_at  DateTime @default(now())
 
-model Category_brand{
-  id              Int        @id @default(autoincrement())
-  category_id            Int?
-  brand_id     Int?
-  created_at      DateTime   @default(now())
+  brand          Brand?          @relation(fields: [brand_id], references: [id])
+  category       Category?       @relation(fields: [category_id], references: [id])
+  product_models Product_model[]
+}
 
-  brand Brand? @relation(fields: [brand_id], references: [id])
-  category Category? @relation(fields: [category_id], references: [id])
+model Attribute_Group {
+  id          Int      @id @default(autoincrement())
+  name        String
+  position    Int?     @default(1)
+  category_id Int
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  category   Category?   @relation(fields: [category_id], references: [id])
+  attributes Attribute[]
+}
+
+model Attribute {
+  id                 Int      @id @default(autoincrement())
+  name               String
+  position           Int?     @default(1)
+  attribute_group_id Int
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+
+  attribute_group Attribute_Group? @relation(fields: [attribute_group_id], references: [id])
+  product_info    Product_Info[]
+}
+
+model Product_Info {
+  id           Int     @id @default(autoincrement())
+  product_id   Int
+  attribute_id Int
+  value        String
+  show_in_main Boolean @default(false)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  // product Product? @relation(fields: [product_id], references: [id])
+  attribute Attribute? @relation(fields: [attribute_id], references: [id])
 }
 
 model Sale{
@@ -77,3 +117,4 @@ model Sale_model{
 }
 
  
+// Shu yerda sizga berilgan modellarning yarating
