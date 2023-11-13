@@ -23,6 +23,8 @@ import { ProductInfoModule } from './product_info/product_info.module';
 
 import { PositionModule } from './no-spec/position/position.module';
 import { PositionModule } from './position/position.module';
+import { AddressModule } from './address/address.module';
+import { DistrictModule } from './district/district.module';
 
 @Module({
   imports: [
@@ -41,10 +43,16 @@ import { PositionModule } from './position/position.module';
     User_addressModule,
     OrderModule,
     Order_itemsModule,
-<<<<<<< HEAD
-=======
+
+    PositionModule,
+    AddressModule,
+    DistrictModule
+
+
+
     PositionModule
->>>>>>> e42b217e29e28c707e9c480df068f1d8a56a76b5
+
+
   ],
   controllers: [],
   providers: [],

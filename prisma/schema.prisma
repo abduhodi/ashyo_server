@@ -202,6 +202,25 @@ model Position {
   updatedAt DateTime @updatedAt @map("updated_at")
 }
 
+model Address {
+  id Int @id @default(autoincrement())
+  location String
+  street String
+  district_id Int?
+  updated_at DateTime @updatedAt
+  created_at DateTime @default(now())
+}
+
+model District {
+  id Int @id @default(autoincrement())
+  name String @unique
+  parent_id Int?
+
+  parent District? @relation("districts_child", fields: [parent_id], references: [id])
+  districts District[] @relation("districts_child")
+}
+
+
  
 
 // Shu yerda sizga berilgan modellarning yarating
