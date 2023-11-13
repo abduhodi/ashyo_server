@@ -30,9 +30,7 @@ export class DistrictService {
     }
   }
 
-  async findAll() {
-    return await this.prisma.district.findMany({ include: { parent: true } });
-  }
+  async findAll 
 
   async findOne(id: number) {
     const wantedDistrict = await this.prisma.district.findFirst({
