@@ -8,6 +8,5 @@ import { PrismaModule } from 'src/prisma/prisma.module';
   controllers: [DistrictController],
   providers: [DistrictService],
   exports: [DistrictService],
-
 })
 export class DistrictModule {}

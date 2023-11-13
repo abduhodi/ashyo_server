@@ -1,8 +1,14 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+
+import { ApiProperty } from "@nestjs/swagger";
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class CreateDistrictDto {
-  @IsString()
-  @ApiProperty({ description: 'Name of the District', example: 'District' })
-  name: string;
+    @ApiProperty({example: "Toshkent", description: "| District name"})
+    @IsNotEmpty()
+    @IsString()
+    name: string;
+
+    @ApiProperty({example: "null", description: "| District parent", default: null})
+    @IsOptional()
+    parent_id: number;
 }

@@ -56,7 +56,9 @@ model Category_brand {
 
   brand          Brand?          @relation(fields: [brand_id], references: [id])
   category       Category?       @relation(fields: [category_id], references: [id])
+  
   product_models Product_model[]
+  sale_models Sale_model[]
 }
 
 model Attribute_Group {
@@ -96,6 +98,31 @@ model Product_Info {
   // product Product? @relation(fields: [product_id], references: [id])
   attribute Attribute? @relation(fields: [attribute_id], references: [id])
 }
+
+model Views {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  product_id Int
+  liked      Boolean  @default(false)
+  view_date  DateTime @default(now())
+
+  // product Product? @relation(fields: [product_id], references: [id])
+  // user User? @relation(fields: [user_id], references: [id])
+}
+
+model Payment {
+  id             Int      @id @default(autoincrement())
+  user_id        Int
+  order_id       Int
+  payment_date   DateTime @default(now())
+  totalAmount    Int
+  payment_method String
+  payment_status String
+
+  // order Order? @relation(fields: [order_id], references: [id])
+  // user User? @relation(fields: [user_id], references: [id])
+}
+
 
 model Comment {
   id         Int      @id @default(autoincrement())
@@ -162,6 +189,8 @@ model Sale_model {
   sale_id  Int?
 
   sale Sale? @relation(fields: [sale_id], references: [id])
+
+  model Category_brand? @relation(fields: [model_id], references: [id])
 }
 
 model Position {
@@ -186,13 +215,25 @@ model Rating {
   // product    Product  @relation(fields: [product_id], references: [id])
 }
 
-// District
+model Address {
+  id Int @id @default(autoincrement())
+  location String
+  street String
+  district_id Int?
+  updated_at DateTime @updatedAt
+  created_at DateTime @default(now())
+}
 
 model District {
-  id        Int    @id @default(autoincrement())
-  name      String
+  id Int @id @default(autoincrement())
+  name String @unique
   parent_id Int?
 
-  // parent      District? @relation("parent_children", fields: [parent_id], references: [id])
-  // children    District[] @relation("parent_children", fields: [id], references: [parent_id])
+  parent District? @relation("districts_child", fields: [parent_id], references: [id])
+  districts District[] @relation("districts_child")
 }
+
+
+ 
+
+// Shu yerda sizga berilgan modellarning yarating
