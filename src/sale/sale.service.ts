@@ -18,7 +18,7 @@ export class SaleService {
 
   async findAll(): Promise<Sale[]> {
     try {
-      return await this.prisma.sale.findMany();
+      return await this.prisma.sale.findMany({ include: { sales: true } });
     } catch (error) {
       throw new Error('Failed to fetch sales: ' + error.message);
     }
@@ -28,6 +28,7 @@ export class SaleService {
     try {
       const sale = await this.prisma.sale.findUnique({
         where: { id },
+        include: { sales: true },
       });
 
       if (!sale) {
@@ -51,7 +52,7 @@ export class SaleService {
     } catch (error) {
       throw new Error(`Failed to update sale with ID ${id}: ` + error.message);
     }
-  } 
+  }
 
   async remove(id: number): Promise<Sale> {
     try {

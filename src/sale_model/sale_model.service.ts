@@ -18,7 +18,7 @@ export class SaleModelService {
 
   async findAll(): Promise<Sale_model[]> {
     try {
-      return await this.prisma.sale_model.findMany();
+      return await this.prisma.sale_model.findMany({include:{sale:true}});
     } catch (error) {
       throw new Error('Failed to fetch sale_models: ' + error.message);
     }
@@ -28,6 +28,7 @@ export class SaleModelService {
     try {
       return await this.prisma.sale_model.findUnique({
         where: { id },
+        include:{sale:true}
       });
     } catch (error) {
       throw new NotFoundException(`Sale_model with ID ${id} not found`);
