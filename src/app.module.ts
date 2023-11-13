@@ -5,6 +5,9 @@ import { ProductModelModule } from './product_model/product_model.module';
 import { CategoryBrandModule } from './category_brand/category_brand.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+
+
+import { AttributesModule } from './attributes/attributes.module';
 import { ProductInfoModule } from './product_info/product_info.module';
 import { SaleModule } from './sale/sale.module';
 import { SaleModelModule } from './sale_model/sale_model.module';
@@ -15,10 +18,9 @@ import { User_addressModule } from './user_address/user_address.module';
 import { OrderModule } from './order/order.module';
 import { Order_itemsModule } from './order_items/order_items.module';
 
-import { AttributeGroupModule } from './attribute_group/attribute_group.module';
-import { AttributesModule } from './attributes/attributes.module';
 
 import { PositionModule } from './position/position.module';
+import { RatingModule } from './rating/rating.module';
 import { AddressModule } from './address/address.module';
 import { DistrictModule } from './district/district.module';
 
@@ -30,7 +32,6 @@ import { DistrictModule } from './district/district.module';
     CategoryBrandModule,
     SaleModule,
     SaleModelModule,
-    AttributeGroupModule,
     AttributesModule,
     ProductInfoModule,
     ViewsModule,
@@ -39,8 +40,16 @@ import { DistrictModule } from './district/district.module';
     User_addressModule,
     OrderModule,
     Order_itemsModule,
+
     AddressModule,
     DistrictModule,
+
+    PositionModule,
+    RatingModule,
+    DistrictModule,
+    AddressModule,
+    DistrictModule,
+
     PositionModule
   ],
   controllers: [],

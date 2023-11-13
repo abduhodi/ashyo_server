@@ -11,24 +11,33 @@ export class DistrictController {
 
   @ApiOperation({summary: "| Create or reorder position"})
   @Post("create")
+  @Post()
   create(@Body() createDistrictDto: CreateDistrictDto) {
     return this.districtService.create(createDistrictDto);
   }
 
   @ApiOperation({summary: "| Get single position"})
   @Get('single/:id')
+  @Get()
+  findAll() {
+    return this.districtService.findAll();
+  }
+
+  @Get(':id')
   findOne(@Param('id') id: string) {
     return this.districtService.findOne(+id);
   }
 
   @ApiOperation({summary: "| Update position"})
   @Put('update/:id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateDistrictDto: UpdateDistrictDto) {
     return this.districtService.update(+id, updateDistrictDto);
   }
 
   @ApiOperation({summary: "| Delete position"})
   @Delete('delete/:id')
+  @Delete(':id')
   remove(@Param('id') id: string) {
     return this.districtService.remove(+id);
   }
