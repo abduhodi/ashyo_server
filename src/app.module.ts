@@ -6,7 +6,6 @@ import { CategoryBrandModule } from './category_brand/category_brand.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
-
 import { AttributesModule } from './attributes/attributes.module';
 import { ProductInfoModule } from './product_info/product_info.module';
 import { SaleModule } from './sale/sale.module';
@@ -23,15 +22,20 @@ import { PositionModule } from './position/position.module';
 import { RatingModule } from './rating/rating.module';
 import { AddressModule } from './address/address.module';
 import { DistrictModule } from './district/district.module';
+import { AttributeGroupModule } from './attribute_group/attribute_group.module';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client')
+    }),
     CategoryModule,
     BrandModule,
     ProductModelModule,
     CategoryBrandModule,
     SaleModule,
     SaleModelModule,
+    AttributeGroupModule,
     AttributesModule,
     ProductInfoModule,
     ViewsModule,
@@ -40,17 +44,10 @@ import { DistrictModule } from './district/district.module';
     User_addressModule,
     OrderModule,
     Order_itemsModule,
-
     AddressModule,
     DistrictModule,
-
     PositionModule,
     RatingModule,
-    DistrictModule,
-    AddressModule,
-    DistrictModule,
-
-    PositionModule
   ],
   controllers: [],
   providers: [],
