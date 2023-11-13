@@ -12,6 +12,10 @@ import { SaleModule } from './sale/sale.module';
 import { SaleModelModule } from './sale_model/sale_model.module';
 import { ViewsModule } from './views/views.module';
 import { PaymentModule } from './payment/payment.module';
+import { CommentModule } from './comment/comment.module';
+import { User_addressModule } from './user_address/user_address.module';
+import { OrderModule } from './order/order.module';
+import { Order_itemsModule } from './order_items/order_items.module';
 
 @Module({
   imports: [
@@ -29,6 +33,10 @@ import { PaymentModule } from './payment/payment.module';
     ProductInfoModule,
     ViewsModule,
     PaymentModule,
+    CommentModule,
+    User_addressModule,
+    OrderModule,
+    Order_itemsModule,
   ],
   controllers: [],
   providers: [],
