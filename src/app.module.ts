@@ -14,14 +14,16 @@ import { OrderModule } from './order/order.module';
 import { Order_itemsModule } from './order_items/order_items.module';
 import { SaleModule } from './sale/sale.module';
 import { SaleModelModule } from './sale_model/sale_model.module';
+
+import { AttributeGroupModule } from './attribute_group/attribute_group.module';
+import { AttributesModule } from './attributes/attributes.module';
+import { ProductInfoModule } from './product_info/product_info.module';
+
 import { PositionModule } from './no-spec/position/position.module';
 import { PositionModule } from './position/position.module';
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
-    }),
     CategoryModule,
     BrandModule,
     ProductModelModule,
