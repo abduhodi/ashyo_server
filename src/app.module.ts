@@ -8,6 +8,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AttributesModule } from './attributes/attributes.module';
 import { ProductInfoModule } from './product_info/product_info.module';
+import { SaleModule } from './sale/sale.module';
+import { SaleModelModule } from './sale_model/sale_model.module';
 import { ViewsModule } from './views/views.module';
 import { PaymentModule } from './payment/payment.module';
 
@@ -20,6 +22,8 @@ import { PaymentModule } from './payment/payment.module';
     BrandModule,
     ProductModelModule,
     CategoryBrandModule,
+    SaleModule,
+    SaleModelModule,
     AttributeGroupModule,
     AttributesModule,
     ProductInfoModule,
