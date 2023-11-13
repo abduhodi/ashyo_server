@@ -15,7 +15,7 @@ export class ViewsService {
           product_id: data.product_id,
           user_id: data.user_id,
         },
-      });
+      }); 
       if (exist) {
         throw new BadRequestException('View is already exists');
       }
