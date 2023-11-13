@@ -14,6 +14,8 @@ import { OrderModule } from './order/order.module';
 import { Order_itemsModule } from './order_items/order_items.module';
 import { SaleModule } from './sale/sale.module';
 import { SaleModelModule } from './sale_model/sale_model.module';
+import { PositionModule } from './no-spec/position/position.module';
+import { PositionModule } from './position/position.module';
 
 @Module({
   imports: [
@@ -32,7 +34,8 @@ import { SaleModelModule } from './sale_model/sale_model.module';
     CommentModule,
     User_addressModule,
     OrderModule,
-    Order_itemsModule
+    Order_itemsModule,
+    PositionModule
   ],
   controllers: [],
   providers: [],

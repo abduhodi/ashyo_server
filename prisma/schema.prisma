@@ -116,5 +116,15 @@ model Sale_model{
   sale Sale? @relation(fields: [sale_id],references: [id])
 }
 
+model Position {
+  id Int  @id @default(1)
+  brand_positioning Int[]
+  attribute_positioning Int[]
+  category_positioning Int[]
+  attribute_group_positioning Int[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
  
 // Shu yerda sizga berilgan modellarning yarating
