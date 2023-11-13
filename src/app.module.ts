@@ -14,6 +14,9 @@ import { OrderModule } from './order/order.module';
 import { Order_itemsModule } from './order_items/order_items.module';
 import { SaleModule } from './sale/sale.module';
 import { SaleModelModule } from './sale_model/sale_model.module';
+import { ProductModule } from './product/product.module';
+import { Product_mediaModule } from './product_media/product_media.module';
+import { Cart_itemsModule } from './cart_items/cart_items.module';
 
 @Module({
   imports: [
@@ -32,7 +35,10 @@ import { SaleModelModule } from './sale_model/sale_model.module';
     CommentModule,
     User_addressModule,
     OrderModule,
-    Order_itemsModule
+    Order_itemsModule,
+    ProductModule,
+    Product_mediaModule,
+    Cart_itemsModule,
   ],
   controllers: [],
   providers: [],
