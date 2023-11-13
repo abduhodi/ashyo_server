@@ -104,13 +104,13 @@ model Comment {
   comment    String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  
+
   // User       User     @relation(fields: [user_id], references: [id])
   // Product    Product  @relation(fields: [product_id], references: [id])
 }
 
 model User_address {
-  id         Int     @id @default(autoincrement())
+  id         Int @id @default(autoincrement())
   user_id    Int
   address_id Int
 
@@ -118,60 +118,81 @@ model User_address {
   // Address    Address @relation(fields: [address_id], references: [id])
 }
 
-model Order{
-  id         Int     @id @default(autoincrement())
-  user_id    Int
-  address_id Int
-  full_name   String
+model Order {
+  id           Int      @id @default(autoincrement())
+  user_id      Int
+  address_id   Int
+  full_name    String
   phone_number String
-  status      String
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  status       String
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
 
   // User       User    @relation(fields: [user_id], references: [id])
   // Address    Address @relation(fields: [address_id], references: [id])
   Order_items Order_items[]
 }
 
-model Order_items{
-  id         Int     @id @default(autoincrement())
-  order_id    Int
-  product_id  Int
-  quantity    Int
-  subtotal    Int
-  created_at  DateTime @default(now())
+model Order_items {
+  id         Int      @id @default(autoincrement())
+  order_id   Int
+  product_id Int
+  quantity   Int
+  subtotal   Int
+  created_at DateTime @default(now())
 
   Order Order @relation(fields: [order_id], references: [id])
   // Product Product @relation(fields: [product_id], references: [id])
 }
 
-model Sale{
-  id              Int        @id @default(autoincrement())
-  start_date      String   
-  end_date      String   
-  percent            Int?
-  created_at      DateTime   @default(now()) 
-  updated_at      DateTime   @updatedAt
+model Sale {
+  id         Int      @id @default(autoincrement())
+  start_date String
+  end_date   String
+  percent    Int?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   sales Sale_model[]
 }
 
-model Sale_model{
-  id              Int        @id @default(autoincrement())
-  model_id            Int?
-  sale_id            Int?
+model Sale_model {
+  id       Int  @id @default(autoincrement())
+  model_id Int?
+  sale_id  Int?
 
-  sale Sale? @relation(fields: [sale_id],references: [id])
+  sale Sale? @relation(fields: [sale_id], references: [id])
 }
 
 model Position {
-  id Int  @id @default(1)
-  brand_positioning Int[]
-  attribute_positioning Int[]
-  category_positioning Int[]
+  id                          Int      @id @default(1)
+  brand_positioning           Int[]
+  attribute_positioning       Int[]
+  category_positioning        Int[]
   attribute_group_positioning Int[]
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt                   DateTime @default(now()) @map("created_at")
+  updatedAt                   DateTime @updatedAt @map("updated_at")
 }
 
- 
+// Rating
+
+model Rating {
+  id         Int @id @default(autoincrement())
+  rating     Int
+  user_id    Int
+  product_id Int
+
+  // user       User     @relation(fields: [user_id], references: [id])
+  // product    Product  @relation(fields: [product_id], references: [id])
+}
+
+// District
+
+model District {
+  id        Int    @id @default(autoincrement())
+  name      String
+  parent_id Int?
+
+  // parent      District? @relation("parent_children", fields: [parent_id], references: [id])
+  // children    District[] @relation("parent_children", fields: [id], references: [parent_id])
+}
