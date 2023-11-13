@@ -97,4 +97,24 @@ model Product_Info {
   attribute Attribute? @relation(fields: [attribute_id], references: [id])
 }
 
+model Sale{
+  id              Int        @id @default(autoincrement())
+  start_date      String   
+  end_date      String   
+  percent            Int?
+  created_at      DateTime   @default(now()) 
+  updated_at      DateTime   @updatedAt
+
+  sales Sale_model[]
+}
+
+model Sale_model{
+  id              Int        @id @default(autoincrement())
+  model_id            Int?
+  sale_id            Int?
+
+  sale Sale? @relation(fields: [sale_id],references: [id])
+}
+
+ 
 // Shu yerda sizga berilgan modellarning yarating
