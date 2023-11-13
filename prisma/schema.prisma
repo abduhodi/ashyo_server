@@ -97,4 +97,28 @@ model Product_Info {
   attribute Attribute? @relation(fields: [attribute_id], references: [id])
 }
 
+model Views {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  product_id Int
+  liked      Boolean @default(false)
+  view_date  DateTime @default(now())
+
+  // product Product? @relation(fields: [product_id], references: [id])
+  // user User? @relation(fields: [user_id], references: [id])
+}
+
+model Payment {
+  id             Int      @id @default(autoincrement())
+  user_id        Int
+  order_id       Int
+  payment_date   DateTime @default(now())
+  totalAmount    Int
+  payment_method String
+  payment_status String
+
+  // order Order? @relation(fields: [order_id], references: [id])
+  // user User? @relation(fields: [user_id], references: [id])
+}
+
 // Shu yerda sizga berilgan modellarning yarating
