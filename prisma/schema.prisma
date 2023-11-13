@@ -56,7 +56,9 @@ model Category_brand {
 
   brand          Brand?          @relation(fields: [brand_id], references: [id])
   category       Category?       @relation(fields: [category_id], references: [id])
+  
   product_models Product_model[]
+  sale_models Sale_model[]
 }
 
 model Attribute_Group {
@@ -121,13 +123,62 @@ model Payment {
   // user User? @relation(fields: [user_id], references: [id])
 }
 
-model Sale {
+
+model Comment {
   id         Int      @id @default(autoincrement())
-  start_date String
-  end_date   String
-  percent    Int?
+  user_id    Int
+  product_id Int
+  comment    String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  
+  // User       User     @relation(fields: [user_id], references: [id])
+  // Product    Product  @relation(fields: [product_id], references: [id])
+}
+
+model User_address {
+  id         Int     @id @default(autoincrement())
+  user_id    Int
+  address_id Int
+
+  // User       User    @relation(fields: [user_id], references: [id])
+  // Address    Address @relation(fields: [address_id], references: [id])
+}
+
+model Order{
+  id         Int     @id @default(autoincrement())
+  user_id    Int
+  address_id Int
+  full_name   String
+  phone_number String
+  status      String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  // User       User    @relation(fields: [user_id], references: [id])
+  // Address    Address @relation(fields: [address_id], references: [id])
+  Order_items Order_items[]
+}
+
+model Order_items{
+  id         Int     @id @default(autoincrement())
+  order_id    Int
+  product_id  Int
+  quantity    Int
+  subtotal    Int
+  created_at  DateTime @default(now())
+
+  Order Order @relation(fields: [order_id], references: [id])
+  // Product Product @relation(fields: [product_id], references: [id])
+}
+
+model Sale{
+  id              Int        @id @default(autoincrement())
+  start_date      String   
+  end_date      String   
+  percent            Int?
+  created_at      DateTime   @default(now()) 
+  updated_at      DateTime   @updatedAt
 
   sales Sale_model[]
 }
@@ -138,6 +189,19 @@ model Sale_model {
   sale_id  Int?
 
   sale Sale? @relation(fields: [sale_id], references: [id])
+  model Category_brand? @relation(fields: [model_id], references: [id])
 }
+
+model Position {
+  id Int  @id @default(1)
+  brand_positioning Int[]
+  attribute_positioning Int[]
+  category_positioning Int[]
+  attribute_group_positioning Int[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+ 
 
 // Shu yerda sizga berilgan modellarning yarating
