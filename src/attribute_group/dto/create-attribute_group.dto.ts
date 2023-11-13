@@ -17,7 +17,7 @@ export class CreateAttributeGroupDto {
 
   @ApiProperty({
     description: 'Category ID of the attribute group',
-    example: 123,
+    example: 1,
   })
   @IsNotEmpty()
   @IsInt()
