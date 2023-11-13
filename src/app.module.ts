@@ -12,6 +12,8 @@ import { CommentModule } from './comment/comment.module';
 import { User_addressModule } from './user_address/user_address.module';
 import { OrderModule } from './order/order.module';
 import { Order_itemsModule } from './order_items/order_items.module';
+import { SaleModule } from './sale/sale.module';
+import { SaleModelModule } from './sale_model/sale_model.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { Order_itemsModule } from './order_items/order_items.module';
     BrandModule,
     ProductModelModule,
     CategoryBrandModule,
+    SaleModule,
+    SaleModelModule,
     AttributeGroupModule,
     AttributesModule,
     ProductInfoModule,
