@@ -97,4 +97,52 @@ model Product_Info {
   attribute Attribute? @relation(fields: [attribute_id], references: [id])
 }
 
+model Comment {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  product_id Int
+  comment    String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  
+  // User       User     @relation(fields: [user_id], references: [id])
+  // Product    Product  @relation(fields: [product_id], references: [id])
+}
+
+model User_address {
+  id         Int     @id @default(autoincrement())
+  user_id    Int
+  address_id Int
+
+  // User       User    @relation(fields: [user_id], references: [id])
+  // Address    Address @relation(fields: [address_id], references: [id])
+}
+
+model Order{
+  id         Int     @id @default(autoincrement())
+  user_id    Int
+  address_id Int
+  full_name   String
+  phone_number String
+  status      String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  // User       User    @relation(fields: [user_id], references: [id])
+  // Address    Address @relation(fields: [address_id], references: [id])
+  Order_items Order_items[]
+}
+
+model Order_items{
+  id         Int     @id @default(autoincrement())
+  order_id    Int
+  product_id  Int
+  quantity    Int
+  subtotal    Int
+  created_at  DateTime @default(now())
+
+  Order Order @relation(fields: [order_id], references: [id])
+  // Product Product @relation(fields: [product_id], references: [id])
+}
+
 // Shu yerda sizga berilgan modellarning yarating
