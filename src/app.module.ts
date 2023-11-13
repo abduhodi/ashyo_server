@@ -16,6 +16,8 @@ import { SaleModule } from './sale/sale.module';
 import { SaleModelModule } from './sale_model/sale_model.module';
 import { PositionModule } from './no-spec/position/position.module';
 import { PositionModule } from './position/position.module';
+import { AddressModule } from './address/address.module';
+import { DistrictModule } from './district/district.module';
 
 @Module({
   imports: [
@@ -35,7 +37,9 @@ import { PositionModule } from './position/position.module';
     User_addressModule,
     OrderModule,
     Order_itemsModule,
-    PositionModule
+    PositionModule,
+    AddressModule,
+    DistrictModule
   ],
   controllers: [],
   providers: [],
