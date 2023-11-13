@@ -157,7 +157,7 @@ model Order {
   // User       User    @relation(fields: [user_id], references: [id])
   // Address    Address @relation(fields: [address_id], references: [id])
   Order_items Order_items[]
-  payments Payment[]
+  payments    Payment[]
 }
 
 model Order_items {
@@ -188,8 +188,6 @@ model Sale_model {
   model_id Int?
   sale_id  Int?
 
-  sale  Sale?           @relation(fields: [sale_id], references: [id])
-
   sale Sale? @relation(fields: [sale_id], references: [id])
 
   model Category_brand? @relation(fields: [model_id], references: [id])
@@ -203,7 +201,6 @@ model Position {
   attribute_group_positioning Int[]
   createdAt                   DateTime @default(now()) @map("created_at")
   updatedAt                   DateTime @updatedAt @map("updated_at")
-
 }
 
 // Rating
@@ -216,7 +213,6 @@ model Rating {
 
   // user       User     @relation(fields: [user_id], references: [id])
   // product    Product  @relation(fields: [product_id], references: [id])
-
 }
 
 model Address {
@@ -241,7 +237,5 @@ model District {
   parent    District?  @relation("districts_child", fields: [parent_id], references: [id])
   districts District[] @relation("districts_child")
 }
-
-
 
 // Shu yerda sizga berilgan modellarning yarating
