@@ -5,13 +5,13 @@ import { ProductModelModule } from './product_model/product_model.module';
 import { CategoryBrandModule } from './category_brand/category_brand.module';
 import { SaleModule } from './sale/sale.module';
 import { SaleModelModule } from './sale_model/sale_model.module';
+import { AttributeGroupModule } from './attribute_group/attribute_group.module';
+import { AttributesModule } from './attributes/attributes.module';
+import { ProductInfoModule } from './product_info/product_info.module';
 
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
-    }),
     CategoryModule,
     BrandModule,
     ProductModelModule,
