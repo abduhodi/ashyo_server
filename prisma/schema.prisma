@@ -119,7 +119,7 @@ model Payment {
   payment_method String
   payment_status String
 
-  // order Order? @relation(fields: [order_id], references: [id])
+  order Order? @relation(fields: [order_id], references: [id])
   // user User? @relation(fields: [user_id], references: [id])
 }
 
@@ -158,6 +158,7 @@ model Order{
   // User       User    @relation(fields: [user_id], references: [id])
   // Address    Address @relation(fields: [address_id], references: [id])
   Order_items Order_items[]
+  payments Payment[]
 }
 
 model Order_items{

@@ -16,16 +16,13 @@ import { CommentModule } from './comment/comment.module';
 import { User_addressModule } from './user_address/user_address.module';
 import { OrderModule } from './order/order.module';
 import { Order_itemsModule } from './order_items/order_items.module';
-
-import { AttributeGroupModule } from './attribute_group/attribute_group.module';
-import { AttributesModule } from './attributes/attributes.module';
-import { ProductInfoModule } from './product_info/product_info.module';
-
-import { PositionModule } from './no-spec/position/position.module';
 import { PositionModule } from './position/position.module';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client'),
+    }),
     CategoryModule,
     BrandModule,
     ProductModelModule,
@@ -41,10 +38,7 @@ import { PositionModule } from './position/position.module';
     User_addressModule,
     OrderModule,
     Order_itemsModule,
-<<<<<<< HEAD
-=======
-    PositionModule
->>>>>>> e42b217e29e28c707e9c480df068f1d8a56a76b5
+    PositionModule,
   ],
   controllers: [],
   providers: [],
