@@ -3,7 +3,7 @@ import { IsOptional } from 'class-validator';
 
 export class UpdatePositionDto {
     
-    @ApiProperty({example: [1, 3, 2], description: "Brands position"})
+    @ApiProperty({example: [2, 3, 1], description: "Brands position"})
     @IsOptional()
     brand_positioning: [number];
 
