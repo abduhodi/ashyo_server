@@ -15,11 +15,17 @@ import { CommentModule } from './comment/comment.module';
 import { User_addressModule } from './user_address/user_address.module';
 import { OrderModule } from './order/order.module';
 import { Order_itemsModule } from './order_items/order_items.module';
+import { SaleModule } from './sale/sale.module';
+import { SaleModelModule } from './sale_model/sale_model.module';
+import { ProductModule } from './product/product.module';
+import { Product_mediaModule } from './product_media/product_media.module';
+import { Cart_itemsModule } from './cart_items/cart_items.module';
 import { PositionModule } from './position/position.module';
 import { RatingModule } from './rating/rating.module';
 import { AddressModule } from './address/address.module';
 import { DistrictModule } from './district/district.module';
 import { AttributeGroupModule } from './attribute_group/attribute_group.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -41,10 +47,14 @@ import { AttributeGroupModule } from './attribute_group/attribute_group.module';
     User_addressModule,
     OrderModule,
     Order_itemsModule,
+    ProductModule,
+    Product_mediaModule,
+    Cart_itemsModule,
     AddressModule,
     DistrictModule,
     PositionModule,
     RatingModule,
+    UserModule,
   ],
   controllers: [],
   providers: [],
