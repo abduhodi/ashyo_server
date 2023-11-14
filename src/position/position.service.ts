@@ -35,12 +35,13 @@ export class PositionService {
   }
 
   async fetchPosition() {
-    const position = await this.prisma.position.findFirst({
+    let position;
+    position = await this.prisma.position.findFirst({
       where: {
         id: 1,
       },
     });
-    if (!position) throw new BadRequestException('Position not found');
+    if (!position) position = await this.createPosition();
 
     const data = {
       brand_positioning: await this.fetcher(

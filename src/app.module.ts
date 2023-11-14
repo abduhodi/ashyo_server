@@ -15,8 +15,6 @@ import { CommentModule } from './comment/comment.module';
 import { User_addressModule } from './user_address/user_address.module';
 import { OrderModule } from './order/order.module';
 import { Order_itemsModule } from './order_items/order_items.module';
-import { SaleModule } from './sale/sale.module';
-import { SaleModelModule } from './sale_model/sale_model.module';
 import { ProductModule } from './product/product.module';
 import { Product_mediaModule } from './product_media/product_media.module';
 import { Cart_itemsModule } from './cart_items/cart_items.module';

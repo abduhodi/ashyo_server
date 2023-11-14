@@ -13,14 +13,14 @@ export class Order_itemsService {
   }
 
   async findAll(): Promise<Order_items[]> {
-    return this.prisma.order_items.findMany({ include: { Order: true } });
+    return this.prisma.order_items.findMany({ include: { order: true } });
   }
 
   async findOne(id: number): Promise<Order_items | null> {
     try {
       return this.prisma.order_items.findUnique({
         where: { id },
-        include: { Order: true },
+        include: { order: true },
       });
     } catch (error) {
       return error;
