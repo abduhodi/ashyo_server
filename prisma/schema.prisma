@@ -7,7 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Category {
   id              Int        @id @default(autoincrement())
   name            String
@@ -102,7 +101,7 @@ model Product_Info {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  product Product? @relation(fields: [product_id], references: [id])
+  product   Product?   @relation(fields: [product_id], references: [id])
   attribute Attribute? @relation(fields: [attribute_id], references: [id])
 }
 
@@ -113,8 +112,7 @@ model Views {
   liked      Boolean  @default(false)
   view_date  DateTime @default(now())
 
-  // product Product? @relation(fields: [product_id], references: [id])
-  // user User? @relation(fields: [user_id], references: [id])
+  product Product? @relation(fields: [product_id], references: [id])
 }
 
 model Payment {
@@ -126,8 +124,8 @@ model Payment {
   payment_method String
   payment_status String
 
-  order Order? @relation(fields: [order_id], references: [id]) 
-  user User? @relation(fields: [user_id], references: [id])
+  order Orders? @relation(fields: [order_id], references: [id])
+  user  User?   @relation(fields: [user_id], references: [id])
 }
 
 model Comment {
@@ -138,25 +136,36 @@ model Comment {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  
-  // user       User?     @relation(fields: [user_id], references: [id])
-  product    Product?  @relation(fields: [product_id], references: [id])
-
-
+  user    User?    @relation(fields: [user_id], references: [id])
+  product Product? @relation(fields: [product_id], references: [id])
 }
 
-model User{
+model User {
   id         Int      @id @default(autoincrement())
   first_name String
-  last_name String
-  phone String
+  last_name  String
+  phone      String
+  password      String
+  token      String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  user_address User_address[]
-  payment Payment[]
-  order Order[]
+  user_addresses User_address[]
+  payments       Payment[]
+  orders         Orders[]
+  comments       Comment[]
+  ratings        Rating[]
+}
 
+model Admin {
+  id         Int      @id @default(autoincrement())
+  first_name String
+  last_name  String
+  phone      String
+  password      String
+  token      String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model User_address {
@@ -181,8 +190,9 @@ model Order {
 
   user       User?    @relation(fields: [user_id], references: [id])
   address    Address? @relation(fields: [address_id], references: [id])
+
   Order_items Order_items[]
-  payment    Payment[]
+  payment     Payment[]
 }
 
 model Order_items {
@@ -193,61 +203,61 @@ model Order_items {
   subtotal   Int
   created_at DateTime @default(now())
 
-  order Order? @relation(fields: [order_id], references: [id])
+  order   Orders?  @relation(fields: [order_id], references: [id])
   product Product? @relation(fields: [product_id], references: [id])
 }
 
-model Product{
-  id         Int     @id @default(autoincrement())
-  category_id Int
-  brand_id Int
+model Product {
+  id               Int      @id @default(autoincrement())
+  category_id      Int
+  brand_id         Int
   product_model_id Int
-  description String
-  price Int
-  count Int
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  description      String
+  price            Int
+  count            Int
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
 
-  category Category? @relation(fields: [category_id], references: [id])
-  brand Brand? @relation(fields: [brand_id], references: [id])
+  category      Category?      @relation(fields: [category_id], references: [id])
+  brand         Brand?         @relation(fields: [brand_id], references: [id])
   product_model Product_model? @relation(fields: [product_model_id], references: [id])
 
-  product_info Product_Info[]
+  product_info  Product_Info[]
   product_media Product_media[]
-  cart_items Cart_items[]
-  order_items Order_items[]
-  comment Comment[]
+  cart_items    Cart_items[]
+  order_items   Order_items[]
+  comments      Comment[]
+  ratings       Rating[]
+  views         Views[]
 }
 
-model Product_media{
-  id              Int        @id @default(autoincrement())
+model Product_media {
+  id         Int    @id @default(autoincrement())
   product_id Int
-  url String
-  type String
+  url        String
+  type       String
 
   product Product? @relation(fields: [product_id], references: [id])
 }
 
+model Cart_items {
+  id         Int      @id @default(autoincrement())
+  user_id    String
+  product_id Int
+  quantity   Int
+  subtotal   Int
+  created_at DateTime @default(now())
 
-model Cart_items{
-  id         Int     @id @default(autoincrement())
-  user_id    Int
-  product_id  Int
-  quantity    Int
-  subtotal    Int
-  created_at  DateTime @default(now())
-
-  // user User? @relation(fields: [user_id], references: [id])
-  product Product? @relation(fields: [product_id],references: [id])
+  product Product? @relation(fields: [product_id], references: [id])
 }
-model Sale{
-  id              Int        @id @default(autoincrement())
-  start_date      String   
-  end_date      String   
-  percent            Int?
-  created_at      DateTime   @default(now()) 
-  updated_at      DateTime   @updatedAt
 
+model Sale {
+  id         Int      @id @default(autoincrement())
+  start_date String
+  end_date   String
+  percent    Int?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   sales Sale_model[]
 }
@@ -258,12 +268,12 @@ model Sale_model {
   sale_id  Int?
 
   sale Sale? @relation(fields: [sale_id], references: [id])
- 
+
   model Category_brand? @relation(fields: [model_id], references: [id])
 }
 
 model Position {
-  id                          Int      @id @default(1)  
+  id                          Int      @id @default(1)
   brand_positioning           Int[]
   attribute_positioning       Int[]
   category_positioning        Int[]
@@ -280,8 +290,8 @@ model Rating {
   user_id    Int
   product_id Int
 
-  // user       User     @relation(fields: [user_id], references: [id])
-  // product    Product  @relation(fields: [product_id], references: [id])
+  user    User?    @relation(fields: [user_id], references: [id])
+  product Product? @relation(fields: [product_id], references: [id])
 }
 
 model Address {
@@ -297,6 +307,7 @@ model Address {
 
   user_address User_address[]
   order Order[]
+
 }
 
 model District {
@@ -311,4 +322,3 @@ model District {
 }
 
 // Shu yerda sizga berilgan modellarning yarating
-

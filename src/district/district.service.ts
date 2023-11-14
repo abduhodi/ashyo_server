@@ -1,4 +1,3 @@
-
 import {
   BadRequestException,
   ConflictException,
@@ -30,7 +29,10 @@ export class DistrictService {
     }
   }
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> f9f5714c3cb9ae35c0f25c799d39dd0044e5ce70
   async findOne(id: number) {
     const wantedDistrict = await this.prisma.district.findFirst({
       where: { id },
