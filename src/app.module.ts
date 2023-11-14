@@ -20,6 +20,7 @@ import { RatingModule } from './rating/rating.module';
 import { AddressModule } from './address/address.module';
 import { DistrictModule } from './district/district.module';
 import { AttributeGroupModule } from './attribute_group/attribute_group.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { AttributeGroupModule } from './attribute_group/attribute_group.module';
     DistrictModule,
     PositionModule,
     RatingModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
