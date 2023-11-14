@@ -1,28 +1,30 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Address } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateAddressDto } from './dto/create-address.dto';
 import { UpdateAddressDto } from './dto/update-address.dto';
-import { PrismaModule } from 'src/prisma/prisma.module';
-import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class AddressService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createAddressDto: CreateAddressDto) {
-    const newAddress = await this.prisma.address.create({
-      data: {
-        ...createAddressDto,
-      },
-    });
+
+  async create(data: CreateAddressDto): Promise<Address> {
+    try {
+      return await this.prisma.address.create({ data });
+    } catch (error) {
+      throw new Error('Failed to create brand: ' + error.message);
+    }
   }
 
   async findAll() {
-    return this.prisma.address.findMany({});
+    return this.prisma.address.findMany({ include: { order: true } });
   }
 
   async findOne(id: number) {
     const wantedAddress = await this.prisma.address.findFirst({
       where: { id },
+      include: { order: true },
     });
     if (wantedAddress) return wantedAddress;
     throw new NotFoundException('Address not found');

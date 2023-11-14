@@ -20,7 +20,7 @@ export class DistrictService {
     if (conflict) throw new ConflictException('Already exists');
     try {
       const newDistrict = await this.prisma.district.create({
-        data: createImageBitmap,
+        data: createDistrictDto,
       });
       return newDistrict;
     } catch (error) {
@@ -30,7 +30,6 @@ export class DistrictService {
     }
   }
 
-  async findAll 
 
   async findOne(id: number) {
     const wantedDistrict = await this.prisma.district.findFirst({

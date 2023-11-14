@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { Order_items } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateOrder_itemsDto } from './dto/create-order_items.dto';
-import { Order_items } from '@prisma/client';
 import { UpdateOrder_itemsDto } from './dto/update-order_items.dto';
 
 @Injectable()
@@ -13,13 +13,14 @@ export class Order_itemsService {
   }
 
   async findAll(): Promise<Order_items[]> {
-    return this.prisma.order_items.findMany({});
+    return this.prisma.order_items.findMany({ include: { Order: true } });
   }
 
   async findOne(id: number): Promise<Order_items | null> {
     try {
       return this.prisma.order_items.findUnique({
         where: { id },
+        include: { Order: true },
       });
     } catch (error) {
       return error;
@@ -46,5 +47,30 @@ export class Order_itemsService {
     } catch (error) {
       return error;
     }
+  }
+
+  async countQuantity(orderItemId: number): Promise<number> {
+    const orderItem = await this.prisma.order_items.findUnique({
+      where: { id: orderItemId },
+    });
+
+    if (!orderItem) {
+      throw new Error(`Order item with id ${orderItemId} not found.`);
+    }
+
+    return orderItem.quantity;
+  }
+
+  async calculateSubtotal(orderItemId: number): Promise<number> {
+    const orderItem = await this.prisma.order_items.findUnique({
+      where: { id: orderItemId },
+    });
+
+    if (!orderItem) {
+      throw new Error(`Order item with id ${orderItemId} not found.`);
+    }
+
+    // Assuming you have a price field in your order item
+    return orderItem.quantity;
   }
 }
