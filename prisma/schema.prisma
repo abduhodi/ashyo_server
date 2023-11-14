@@ -119,8 +119,8 @@ model Payment {
   payment_method String
   payment_status String
 
-  order Order? @relation(fields: [order_id], references: [id])
-  // user User? @relation(fields: [user_id], references: [id])
+  order Order? @relation(fields: [order_id], references: [id]) 
+  user User? @relation(fields: [user_id], references: [id])
 }
 
 model Comment {
@@ -135,12 +135,26 @@ model Comment {
   // Product    Product  @relation(fields: [product_id], references: [id])
 }
 
+model User{
+  id         Int      @id @default(autoincrement())
+  first_name String
+  last_name String
+  phone String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  user_address User_address[]
+  payment Payment[]
+  order Order[]
+
+}
+
 model User_address {
   id         Int @id @default(autoincrement())
   user_id    Int
   address_id Int
 
-  // User       User    @relation(fields: [user_id], references: [id])
+  User       User    @relation(fields: [user_id], references: [id])
   // Address    Address @relation(fields: [address_id], references: [id])
 }
 
@@ -154,10 +168,10 @@ model Order {
   created_at   DateTime @default(now())
   updated_at   DateTime @updatedAt
 
-  // User       User    @relation(fields: [user_id], references: [id])
-  // Address    Address @relation(fields: [address_id], references: [id])
+  User       User    @relation(fields: [user_id], references: [id])
+  Address    Address @relation(fields: [address_id], references: [id])
   Order_items Order_items[]
-  payments    Payment[]
+  payment    Payment[]
 }
 
 model Order_items {
@@ -189,12 +203,12 @@ model Sale_model {
   sale_id  Int?
 
   sale Sale? @relation(fields: [sale_id], references: [id])
-
+ 
   model Category_brand? @relation(fields: [model_id], references: [id])
 }
 
 model Position {
-  id                          Int      @id @default(1)
+  id                          Int      @id @default(1)  
   brand_positioning           Int[]
   attribute_positioning       Int[]
   category_positioning        Int[]
@@ -225,6 +239,8 @@ model Address {
 
   updated_at DateTime @updatedAt
   created_at DateTime @default(now())
+
+  order Order[]
 }
 
 model District {

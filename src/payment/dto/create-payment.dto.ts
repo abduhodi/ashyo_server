@@ -1,10 +1,10 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreatePaymentDto {
   @ApiProperty({
     description: 'Id of the user',
-    example: 'Example 12',
+    example: 1,
   })
   @IsNotEmpty()
   @IsNumber()
@@ -12,7 +12,7 @@ export class CreatePaymentDto {
 
   @ApiProperty({
     description: 'Id of the order',
-    example: 'Example 12',
+    example: 1,
   })
   @IsNotEmpty()
   @IsNumber()

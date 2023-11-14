@@ -16,12 +16,12 @@ export class DistrictController {
     return this.districtService.create(createDistrictDto);
   }
 
-  @ApiOperation({summary: "| Get single position"})
-  @Get('single/:id')
-  @Get()
-  findAll() {
-    return this.districtService.findAll();
-  }
+  // @ApiOperation({summary: "| Get single position"})
+  // @Get('single/:id')
+  // @Get()
+  // findAll() {
+  //   return this.districtService.findAll();
+  // }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
