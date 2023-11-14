@@ -21,14 +21,14 @@ export class PaymentService {
       });
       return item;
     } catch (error) {
-      throw new BadRequestException(error?.message);
+      throw new BadRequestException(error?.message); 
     }
   }
 
   async findAll(): Promise<Payment[]> {
     try {
       const items = await this.prisma.payment.findMany({
-        // include: { user: true, order: true },
+        include: { user: true, order: true },
       });
       return items;
     } catch (error) {
@@ -40,10 +40,10 @@ export class PaymentService {
     try {
       const item = await this.prisma.payment.findUnique({
         where: { id },
-        // include: {
-        //   user: true,
-        //   order: true
-        // },
+        include: {
+          user: true,
+          order: true
+        },
       });
       return item;
     } catch (error) {

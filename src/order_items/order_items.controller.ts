@@ -8,9 +8,9 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Order_itemsService } from './order_items.service';
 import { CreateOrder_itemsDto } from './dto/create-order_items.dto';
 import { UpdateOrder_itemsDto } from './dto/update-order_items.dto';
+import { Order_itemsService } from './order_items.service';
 
 @ApiTags('Order_items')
 @Controller('order_items')
@@ -43,5 +43,15 @@ export class Order_itemsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.order_itemsService.remove(Number(id));
+  }
+
+  @Get(':id/quantity')
+  countQuantity(@Param('id') id: string) {
+    return this.order_itemsService.countQuantity(+id);
+  }
+
+  @Get(':id/subtotal')
+  calculateSubtotal(@Param('id') id: string) {
+    return this.order_itemsService.calculateSubtotal(+id);
   }
 }
