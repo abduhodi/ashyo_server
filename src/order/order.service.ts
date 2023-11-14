@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Order } from '@prisma/client';
+import { User_Orders } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
@@ -8,42 +8,47 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 export class OrderService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: CreateOrderDto): Promise<Order> {
-    return this.prisma.order.create({ data });
+  async create(data: CreateOrderDto): Promise<User_Orders> {
+    return this.prisma.user_Orders.create({ data });
   }
 
-  async findAll(): Promise<Order[]> {
-    return this.prisma.order.findMany({
-      include: { address: true, Order_items: true, payment: true,user:true },
+  async findAll(): Promise<User_Orders[]> {
+    return this.prisma.user_Orders.findMany({
+      include: { address: true, Order_items: true, payment: true, user: true },
     });
   }
 
-  async findOne(id: number): Promise<Order | null> {
+  async findOne(id: number): Promise<User_Orders | null> {
     try {
-      return this.prisma.order.findUnique({
+      return this.prisma.user_Orders.findUnique({
         where: { id },
-        include: { address: true, Order_items: true, payment: true ,user:true},
+        include: {
+          address: true,
+          Order_items: true,
+          payment: true,
+          user: true,
+        },
       });
-    } catch (error) {
-      return error; 
-    }
-  }
-
-  async update(id: number, data: UpdateOrderDto): Promise<Order> {
-    try {
-      const order = await this.prisma.order.update({
-        where: { id },
-        data,
-      });
-      return order;
     } catch (error) {
       return error;
     }
   }
 
-  async remove(id: number): Promise<Order> {
+  async update(id: number, data: UpdateOrderDto): Promise<User_Orders> {
     try {
-      return this.prisma.order.delete({
+      const user_Orders = await this.prisma.user_Orders.update({
+        where: { id },
+        data,
+      });
+      return user_Orders;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async remove(id: number): Promise<User_Orders> {
+    try {
+      return this.prisma.user_Orders.delete({
         where: { id },
       });
     } catch (error) {
