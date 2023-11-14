@@ -14,7 +14,7 @@ export class OrderService {
 
   async findAll(): Promise<Order[]> {
     return this.prisma.order.findMany({
-      include: { Address: true, Order_items: true, payment: true,User:true },
+      include: { address: true, Order_items: true, payment: true,user:true },
     });
   }
 
@@ -22,7 +22,7 @@ export class OrderService {
     try {
       return this.prisma.order.findUnique({
         where: { id },
-        include: { Address: true, Order_items: true, payment: true ,User:true},
+        include: { address: true, Order_items: true, payment: true ,user:true},
       });
     } catch (error) {
       return error; 

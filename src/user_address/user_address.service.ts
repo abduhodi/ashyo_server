@@ -13,14 +13,13 @@ export class User_addressService {
   }
 
   async findAll(): Promise<User_address[]> {
-    return this.prisma.user_address.findMany({ include: { User: true ,} });
+    return this.prisma.user_address.findMany();
   }
 
   async findOne(id: number): Promise<User_address | null> {
     try {
       return this.prisma.user_address.findUnique({
         where: { id },
-        include: { User: true },
       });
     } catch (error) {
       return error;
