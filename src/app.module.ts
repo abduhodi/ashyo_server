@@ -15,12 +15,21 @@ import { CommentModule } from './comment/comment.module';
 import { User_addressModule } from './user_address/user_address.module';
 import { OrderModule } from './order/order.module';
 import { Order_itemsModule } from './order_items/order_items.module';
+import { SaleModule } from './sale/sale.module';
+import { SaleModelModule } from './sale_model/sale_model.module';
+import { ProductModule } from './product/product.module';
+import { Product_mediaModule } from './product_media/product_media.module';
+import { Cart_itemsModule } from './cart_items/cart_items.module';
 import { PositionModule } from './position/position.module';
 import { RatingModule } from './rating/rating.module';
 import { AddressModule } from './address/address.module';
 import { DistrictModule } from './district/district.module';
 import { AttributeGroupModule } from './attribute_group/attribute_group.module';
+<<<<<<< HEAD
 import { AuthModule } from './auth/auth.module';
+=======
+import { UserModule } from './user/user.module';
+>>>>>>> f9f5714c3cb9ae35c0f25c799d39dd0044e5ce70
 
 @Module({
   imports: [
@@ -42,11 +51,18 @@ import { AuthModule } from './auth/auth.module';
     User_addressModule,
     OrderModule,
     Order_itemsModule,
+    ProductModule,
+    Product_mediaModule,
+    Cart_itemsModule,
     AddressModule,
     DistrictModule,
     PositionModule,
     RatingModule,
+<<<<<<< HEAD
     AuthModule,
+=======
+    UserModule,
+>>>>>>> f9f5714c3cb9ae35c0f25c799d39dd0044e5ce70
   ],
   controllers: [],
   providers: [],
