@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Order_items } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateOrder_itemsDto } from './dto/create-order_items.dto';
@@ -13,14 +13,14 @@ export class Order_itemsService {
   }
 
   async findAll(): Promise<Order_items[]> {
-    return this.prisma.order_items.findMany({ include: { Order: true } });
+    return this.prisma.order_items.findMany({ include: { order: true } });
   }
 
   async findOne(id: number): Promise<Order_items | null> {
     try {
       return this.prisma.order_items.findUnique({
         where: { id },
-        include: { Order: true },
+        include: { order: true },
       });
     } catch (error) {
       return error;
@@ -64,13 +64,17 @@ export class Order_itemsService {
   async calculateSubtotal(orderItemId: number): Promise<number> {
     const orderItem = await this.prisma.order_items.findUnique({
       where: { id: orderItemId },
+      include: { product: true },
     });
 
     if (!orderItem) {
-      throw new Error(`Order item with id ${orderItemId} not found.`);
+      throw new NotFoundException(
+        `Order item with id ${orderItemId} not found.`,
+      );
     }
 
-    // Assuming you have a price field in your order item
-    return orderItem.quantity;
+    const productPrice = orderItem.product.price;
+
+    return orderItem.quantity * productPrice;
   }
 }
