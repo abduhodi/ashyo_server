@@ -26,6 +26,7 @@ import { AttributeGroupModule } from './attribute_group/attribute_group.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { JwtModule } from '@nestjs/jwt';
+import { SMSApiModule } from './smsApi/smsApi.module';
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import { JwtModule } from '@nestjs/jwt';
     RatingModule,
     AuthModule,
     UserModule,
+    SMSApiModule,
   ],
   controllers: [],
   providers: [],

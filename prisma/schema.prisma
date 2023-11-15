@@ -152,17 +152,6 @@ model User {
   ratings        Rating[]
 }
 
-// model Admin {
-//   id         Int      @id @default(autoincrement())
-//   first_name String
-//   last_name  String
-//   phone      String
-//   password   String
-//   token      String?
-//   created_at DateTime @default(now())
-//   updated_at DateTime @updatedAt
-// }
-
 model User_address {
   id         Int @id @default(autoincrement())
   user_id    Int

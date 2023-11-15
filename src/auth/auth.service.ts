@@ -11,10 +11,15 @@ import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { SignupAuthDto } from './dto/signup.auth';
 import { ROLE } from '../enums/roles.enum';
-
+import { SMSApiService } from '../smsApi/smsApi.service';
+const otpGenerator = require('otp-generator');
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService, private jwtService: JwtService) {}
+  constructor(
+    private prisma: PrismaService,
+    private jwtService: JwtService,
+    private smsService: SMSApiService,
+  ) {}
 
   async signupUser(signupDto: SignupAuthDto) {
     try {
@@ -28,6 +33,13 @@ export class AuthService {
           'Phone number is already registered by another User',
         );
       }
+      const otp = otpGenerator.generate(4, {
+        upperCaseAlphabets: false,
+        specialChars: false,
+        lowerCaseAlphabets: false,
+        digits: true,
+      });
+      await this.smsService.sendMessage(phone, otp);
       const hashed_password = await bcrypt.hash(password, 7);
       const user = await this.prisma.user.create({
         data: { phone, password: hashed_password, role: ROLE.USER },
