@@ -6,22 +6,32 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { AuhtGuard } from '../guards/auth.guard';
+import { RoleGuard } from '../guards/role.guard';
+import { Roles } from '../decorators/role.decorator';
+import { ROLE } from '../enums/roles.enum';
+import { Public } from '../decorators/public.decorator';
 
 @ApiTags('Product')
+// @UseGuards(AuhtGuard) // qachondir commentdan chiqariladi. hozir ishlayapti
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
+  // @UseGuards(RoleGuard) // qachondir commentdan chiqariladi. hozir ishlayapti
+  // @Roles([ROLE.ADMIN]) // qachondir commentdan chiqariladi. hozir ishlayapti
   @Post()
   create(@Body() createProductDto: CreateProductDto) {
     return this.productService.create(createProductDto);
   }
 
+  // @Public() //qachondir commentdan chiqariladi. hozir ishlayapti
   @Get()
   findAll() {
     return this.productService.findAll();

@@ -19,4 +19,12 @@ export class CreateUserDto {
     example: '+998939992211',
   })
   phone: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({
+    description: 'password of  user',
+    example: 'strongPassword',
+  })
+  password: string;
 }

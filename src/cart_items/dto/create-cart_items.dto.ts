@@ -5,7 +5,7 @@ export class CreateCart_itemsDto {
   @IsInt()
   @IsPositive()
   @ApiProperty({ description: 'ID of the user', example: 1, required: true })
-  user_id: number;
+  user_id: string;
 
   @IsInt()
   @IsPositive()

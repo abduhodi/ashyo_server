@@ -29,7 +29,6 @@ export class DistrictService {
     }
   }
 
-
   async findOne(id: number) {
     const wantedDistrict = await this.prisma.district.findFirst({
       where: { id },

@@ -124,7 +124,7 @@ model Payment {
   payment_method String
   payment_status String
 
-  order Orders? @relation(fields: [order_id], references: [id])
+  order User_Orders? @relation(fields: [order_id], references: [id])
   user  User?   @relation(fields: [user_id], references: [id])
 }
 
@@ -142,31 +142,32 @@ model Comment {
 
 model User {
   id         Int      @id @default(autoincrement())
-  first_name String
-  last_name  String
+  first_name String? 
+  last_name  String?
   phone      String
-  password      String
-  token      String
+  password   String
+  token      String?
+  role      String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
   user_addresses User_address[]
   payments       Payment[]
-  orders         Orders[]
+  orders         User_Orders[]
   comments       Comment[]
   ratings        Rating[]
 }
 
-model Admin {
-  id         Int      @id @default(autoincrement())
-  first_name String
-  last_name  String
-  phone      String
-  password      String
-  token      String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-}
+// model Admin {
+//   id         Int      @id @default(autoincrement())
+//   first_name String
+//   last_name  String
+//   phone      String
+//   password   String
+//   token      String?
+//   created_at DateTime @default(now())
+//   updated_at DateTime @updatedAt
+// }
 
 model User_address {
   id         Int @id @default(autoincrement())
@@ -177,7 +178,7 @@ model User_address {
   address    Address? @relation(fields: [address_id], references: [id])
 }
 
-model Orders {
+model User_Orders {
   id           Int      @id @default(autoincrement())
   user_id      Int
   address_id   Int
@@ -203,7 +204,7 @@ model Order_items {
   subtotal   Int
   created_at DateTime @default(now())
 
-  order   Orders?  @relation(fields: [order_id], references: [id])
+  order   User_Orders?  @relation(fields: [order_id], references: [id])
   product Product? @relation(fields: [product_id], references: [id])
 }
 
@@ -305,9 +306,14 @@ model Address {
   updated_at DateTime @updatedAt
   created_at DateTime @default(now())
 
+<<<<<<< HEAD
   user_address User_address[]
   order Orders[]
 
+=======
+  order          User_Orders[]
+  user_addresses User_address[]
+>>>>>>> e9b4cab263cdd280a6a598f70eefc40f92b7c661
 }
 
 model District {

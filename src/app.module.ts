@@ -25,11 +25,15 @@ import { DistrictModule } from './district/district.module';
 import { AttributeGroupModule } from './attribute_group/attribute_group.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'client')
+      rootPath: join(__dirname, '..', 'client'),
+    }),
+    JwtModule.register({
+      global: true,
     }),
     CategoryModule,
     BrandModule,
