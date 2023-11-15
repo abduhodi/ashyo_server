@@ -23,11 +23,8 @@ import { RatingModule } from './rating/rating.module';
 import { AddressModule } from './address/address.module';
 import { DistrictModule } from './district/district.module';
 import { AttributeGroupModule } from './attribute_group/attribute_group.module';
-<<<<<<< HEAD
 import { AuthModule } from './auth/auth.module';
-=======
 import { UserModule } from './user/user.module';
->>>>>>> f9f5714c3cb9ae35c0f25c799d39dd0044e5ce70
 
 @Module({
   imports: [
@@ -56,11 +53,8 @@ import { UserModule } from './user/user.module';
     DistrictModule,
     PositionModule,
     RatingModule,
-<<<<<<< HEAD
     AuthModule,
-=======
     UserModule,
->>>>>>> f9f5714c3cb9ae35c0f25c799d39dd0044e5ce70
   ],
   controllers: [],
   providers: [],
