@@ -26,7 +26,7 @@ export class AttributeGroupService {
   async findAll(): Promise<Attribute_Group[]> {
     try {
       const items = await this.prisma.attribute_Group.findMany({
-        include: { attributes: true, category: true },
+        include: { attributes: true, categories: true },
       });
       return items;
     } catch (error) {
@@ -38,7 +38,7 @@ export class AttributeGroupService {
     try {
       const item = await this.prisma.attribute_Group.findUnique({
         where: { id },
-        include: { attributes: true, category: true },
+        include: { attributes: true, categories: true },
       });
       return item;
     } catch (error) {

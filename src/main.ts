@@ -12,6 +12,7 @@ const start = async () => {
       .setDescription(' project for Ashyo')
       .setVersion('1.0.0')
       .addTag('NodeJs')
+      .addBearerAuth()
       .build();
 
     const PORT = process.env.PORT || 3333;

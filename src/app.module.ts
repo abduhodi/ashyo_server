@@ -24,6 +24,9 @@ import { RatingModule } from './rating/rating.module';
 import { SaleModule } from './sale/sale.module';
 import { SaleModelModule } from './sale_model/sale_model.module';
 import { UserModule } from './user/user.module';
+import { JwtModule } from '@nestjs/jwt';
+import { AttributeGroupProductModelModule } from './attribute-group_product-model/attribute-group_product-model.module';
+import { AttributeGroupCategoryModule } from './attribute-group_category/attribute-group_category.module';
 import { User_addressModule } from './user_address/user_address.module';
 import { ViewsModule } from './views/views.module';
 
@@ -59,6 +62,8 @@ import { ViewsModule } from './views/views.module';
     RatingModule,
     AuthModule,
     UserModule,
+    AttributeGroupProductModelModule,
+    AttributeGroupCategoryModule,
   ],
   controllers: [],
   providers: [],

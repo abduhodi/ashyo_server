@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Category } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -9,16 +13,25 @@ export class CategoryService {
   constructor(private prisma: PrismaService) {}
 
   async create(data: CreateCategoryDto): Promise<Category> {
-    try {
-      return await this.prisma.category.create({ data });
-    } catch (error) {
-      throw new Error('Failed to create category: ' + error.message);
+    let newCategory: Category;
+    const allCategories = await this.prisma.category.findMany({});
+    if (data.parent_id) {
+      const isHave = allCategories.some(
+        (category) => category.id == data.parent_id,
+      );
+      if (!isHave) throw new BadRequestException(`Parent category not found`);
     }
+    try {
+      newCategory = await this.prisma.category.create({ data });
+    } catch (error) {
+      throw new BadRequestException(`Already exists`);
+    }
+    return newCategory;
   }
 
   async findAll(): Promise<Category[]> {
     try {
-      return await this.prisma.category.findMany({ include: { brands: true } });
+      return await this.prisma.category.findMany({ include: { brands: true, children: true } });
     } catch (error) {
       throw new Error('Failed to fetch categories: ' + error.message);
     }
