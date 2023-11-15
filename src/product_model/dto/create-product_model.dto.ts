@@ -20,4 +20,5 @@ export class CreateProductModelDto {
   @IsPositive()
   @ApiProperty({ description: 'id of category_brand', example: 1 })
   category_brand_id: number;
+
 }

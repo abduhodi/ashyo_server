@@ -4,7 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class LoginAuthDto {
   @ApiProperty({
     description: 'User phone number',
-    example: '+1234567890',
+    example: '+998931234284',
   })
   @IsNotEmpty({ message: 'Phone number cannot be empty' })
   @IsPhoneNumber(null, { message: 'Invalid phone number format' })

@@ -18,9 +18,10 @@ model Category {
   updated_at      DateTime   @updatedAt
 
   brands           Category_brand[]
-  attribute_groups AttributeGroup_Category[]
-
+  attribute_groups Attribute_Group[]
   products Product[]
+  product_models Product_model[]
+
 }
 
 model Brand {
@@ -32,7 +33,8 @@ model Brand {
   updated_at  DateTime @updatedAt
 
   categories Category_brand[]
-  products   Product[]
+  products Product[]
+  product_model Product_model[]
 }
 
 model Product_model {
@@ -66,8 +68,9 @@ model Category_brand {
   brand    Brand?    @relation(fields: [brand_id], references: [id])
   category Category? @relation(fields: [category_id], references: [id])
 
-  product_models Product_model[]
   sale_models    Sale_model[]
+  products Product[]
+  
 }
 
 model Attribute_Group {
@@ -131,8 +134,8 @@ model Payment {
   id             Int      @id @default(autoincrement())
   user_id        Int
   order_id       Int
-  payment_date   DateTime @default(now())
-  totalAmount    Int
+  payment_date   DateTime
+  total_amount    Int
   payment_method String
   payment_status String
 
@@ -186,8 +189,8 @@ model User_address {
   user_id    Int
   address_id Int
 
-  user    User?    @relation(fields: [user_id], references: [id])
-  address Address? @relation(fields: [address_id], references: [id])
+  user       User?    @relation(fields: [user_id], references: [id])
+  address    Address? @relation(fields: [address_id], references: [id])
 }
 
 model User_Orders {
@@ -200,8 +203,10 @@ model User_Orders {
   created_at   DateTime @default(now())
   updated_at   DateTime @updatedAt
 
-  user        User?         @relation(fields: [user_id], references: [id])
-  address     Address?      @relation(fields: [address_id], references: [id])
+
+  user       User?    @relation(fields: [user_id], references: [id])
+  address    Address? @relation(fields: [address_id], references: [id])
+
   Order_items Order_items[]
   payment     Payment[]
 }
