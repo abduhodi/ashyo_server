@@ -306,14 +306,8 @@ model Address {
   updated_at DateTime @updatedAt
   created_at DateTime @default(now())
 
-<<<<<<< HEAD
-  user_address User_address[]
-  order Orders[]
-
-=======
   order          User_Orders[]
   user_addresses User_address[]
->>>>>>> e9b4cab263cdd280a6a598f70eefc40f92b7c661
 }
 
 model District {
