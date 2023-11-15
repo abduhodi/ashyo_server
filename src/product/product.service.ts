@@ -12,8 +12,25 @@ export class ProductService {
     return this.prisma.product.create({ data });
   }
 
-  async findAll(): Promise<Product[]> {
-    return this.prisma.product.findMany({});
+  async findAll() {
+    return this.prisma.product.findMany({include: {
+      product_info: {
+        select: {
+          attribute: {
+            select: {
+              name: true,
+              attribute_group: true,
+               
+            }
+          },
+          value: true
+        }
+      }
+    }});
+    // return await this.prisma.product_model.findMany({include:{
+    //   attribute_groups: true,
+    //   products: true
+    // }})
   }
 
   async findOne(id: number): Promise<Product | null> {

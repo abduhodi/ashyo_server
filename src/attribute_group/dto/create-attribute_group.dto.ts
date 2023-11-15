@@ -8,18 +8,5 @@ export class CreateAttributeGroupDto {
   })
   @IsNotEmpty()
   @IsString()
-  name: string;
-
-  @ApiProperty({ description: 'Position of the attribute group', example: 1 })
-  @IsOptional()
-  @IsInt()
-  position?: number = 1;
-
-  @ApiProperty({
-    description: 'Category ID of the attribute group',
-    example: 1,
-  })
-  @IsNotEmpty()
-  @IsInt()
-  category_id: number;
+  name: string; 
 }

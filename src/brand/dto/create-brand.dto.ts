@@ -13,11 +13,6 @@ export class CreateBrandDto {
   })
   description: string;
 
-  @IsInt()
-  @IsPositive()
-  @ApiProperty({ description: 'position of brand', example: 1 })
-  position: number;
-
   @IsString()
   @ApiProperty({
     description: 'logo for this brand',

@@ -18,7 +18,9 @@ export class ProductModelService {
 
   async findAll(): Promise<Product_model[]> {
     try {
-      return await this.prisma.product_model.findMany();
+      return await this.prisma.product_model.findMany({
+        include: { products: true },
+      });
     } catch (error) {
       throw new Error('Failed to fetch product_models: ' + error.message);
     }
@@ -28,6 +30,7 @@ export class ProductModelService {
     try {
       return await this.prisma.product_model.findUnique({
         where: { id },
+        include: { products: true },
       });
     } catch (error) {
       throw new NotFoundException(`Product_model with ID ${id} not found`);

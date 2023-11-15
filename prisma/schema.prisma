@@ -9,43 +9,59 @@ datasource db {
 
 model Category {
   id              Int        @id @default(autoincrement())
-  name            String
+  name            String     @unique
   description     String?
   parent_id       Int?
   parent_category Category?  @relation("category_parent", fields: [parent_id], references: [id])
   children        Category[] @relation("category_parent")
-  position        Int?
   created_at      DateTime   @default(now())
   updated_at      DateTime   @updatedAt
 
   brands           Category_brand[]
   attribute_groups Attribute_Group[]
   products         Product[]
+  product_models   Product_model[]
+
+  AttributeGroup_Category AttributeGroup_Category[]
 }
 
 model Brand {
   id          Int      @id @default(autoincrement())
   name        String
   description String
-  position    Int
   logo_url    String
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 
-  categories Category_brand[]
-  products   Product[]
+  categories    Category_brand[]
+  products      Product[]
+  product_model Product_model[]
 }
 
 model Product_model {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String
-  brand_id    Int
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  id                Int      @id @default(autoincrement())
+  name              String
+  description       String
+  category_brand_id Int
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
 
-  category_brand Category_brand? @relation(fields: [brand_id], references: [id])
-  products       Product[]
+  category_brand   Category_brand?              @relation(fields: [category_brand_id], references: [id])
+  attribute_groups AttribueGroup_ProductModel[]
+  products         Product[]
+  Category         Category?                    @relation(fields: [categoryId], references: [id])
+  categoryId       Int?
+  Brand            Brand?                       @relation(fields: [brandId], references: [id])
+  brandId          Int?
+}
+
+model AttributeGroup_Category {
+  id                 Int @id @default(autoincrement())
+  attribute_group_id Int
+  category_id        Int
+
+  attribute Attribute_Group @relation(fields: [attribute_group_id], references: [id])
+  category  Category        @relation(fields: [category_id], references: [id])
 }
 
 model Category_brand {
@@ -57,25 +73,38 @@ model Category_brand {
   brand    Brand?    @relation(fields: [brand_id], references: [id])
   category Category? @relation(fields: [category_id], references: [id])
 
-  product_models Product_model[]
-  sale_models    Sale_model[]
+  sale_models Sale_model[]
+  products    Product[]
+
+  Product_model Product_model[]
 }
 
 model Attribute_Group {
-  id          Int      @id @default(autoincrement())
-  name        String
-  position    Int?     @default(1)
-  category_id Int
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  category   Category?   @relation(fields: [category_id], references: [id])
+  categories     AttributeGroup_Category[]
+  product_models AttribueGroup_ProductModel[]
+
   attributes Attribute[]
+  Category   Category?   @relation(fields: [categoryId], references: [id])
+  categoryId Int?
+}
+
+model AttribueGroup_ProductModel {
+  id                 Int @id @default(autoincrement())
+  attribute_group_id Int
+  product_model_id   Int
+
+  attribute_group Attribute_Group @relation(fields: [attribute_group_id], references: [id])
+  product_model   Product_model   @relation(fields: [product_model_id], references: [id])
 }
 
 model Attribute {
   id                 Int      @id @default(autoincrement())
-  name               String
+  name               String   @unique
   position           Int?     @default(1)
   attribute_group_id Int
   created_at         DateTime @default(now())
@@ -113,13 +142,13 @@ model Payment {
   id             Int      @id @default(autoincrement())
   user_id        Int
   order_id       Int
-  payment_date   DateTime @default(now())
-  totalAmount    Int
+  payment_date   DateTime
+  total_amount   Int
   payment_method String
   payment_status String
 
   order User_Orders? @relation(fields: [order_id], references: [id])
-  user  User?   @relation(fields: [user_id], references: [id])
+  user  User?        @relation(fields: [user_id], references: [id])
 }
 
 model Comment {
@@ -136,12 +165,12 @@ model Comment {
 
 model User {
   id         Int      @id @default(autoincrement())
-  first_name String? 
+  first_name String?
   last_name  String?
   phone      String
   password   String
   token      String?
-  role      String
+  role       String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
@@ -171,8 +200,9 @@ model User_Orders {
   created_at   DateTime @default(now())
   updated_at   DateTime @updatedAt
 
-  user        User?         @relation(fields: [user_id], references: [id])
-  address     Address?      @relation(fields: [address_id], references: [id])
+  user    User?    @relation(fields: [user_id], references: [id])
+  address Address? @relation(fields: [address_id], references: [id])
+
   Order_items Order_items[]
   payment     Payment[]
 }
@@ -185,8 +215,8 @@ model Order_items {
   subtotal   Int
   created_at DateTime @default(now())
 
-  order   User_Orders?  @relation(fields: [order_id], references: [id])
-  product Product? @relation(fields: [product_id], references: [id])
+  order   User_Orders? @relation(fields: [order_id], references: [id])
+  product Product?     @relation(fields: [product_id], references: [id])
 }
 
 model Product {
@@ -204,13 +234,15 @@ model Product {
   brand         Brand?         @relation(fields: [brand_id], references: [id])
   product_model Product_model? @relation(fields: [product_model_id], references: [id])
 
-  product_info  Product_Info[]
-  product_media Product_media[]
-  cart_items    Cart_items[]
-  order_items   Order_items[]
-  comments      Comment[]
-  ratings       Rating[]
-  views         Views[]
+  product_info     Product_Info[]
+  product_media    Product_media[]
+  cart_items       Cart_items[]
+  order_items      Order_items[]
+  comments         Comment[]
+  ratings          Rating[]
+  views            Views[]
+  Category_brand   Category_brand? @relation(fields: [category_brandId], references: [id])
+  category_brandId Int?
 }
 
 model Product_media {

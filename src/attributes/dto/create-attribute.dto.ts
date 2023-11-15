@@ -10,11 +10,6 @@ export class CreateAttributeDto {
   @IsString()
   name: string;
 
-  @ApiProperty({ description: 'Position of the attribute', example: 1 })
-  @IsOptional()
-  @IsInt()
-  position?: number = 1;
-
   @ApiProperty({
     description: 'Attribute Group ID of the attribute',
     example: 1,
