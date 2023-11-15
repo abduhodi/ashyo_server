@@ -74,7 +74,6 @@ export class Order_itemsService {
     }
 
     const productPrice = orderItem.product.price;
-
     return orderItem.quantity * productPrice;
   }
 }

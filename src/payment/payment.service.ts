@@ -15,7 +15,7 @@ export class PaymentService {
         data: {
           ...data,
           payment_date: new Date(),
-          totalAmount: 0,
+          total_amount: 0,
           payment_status: PAYMENT_STATUS.PENDING,
         },
       });

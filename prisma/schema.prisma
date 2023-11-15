@@ -119,8 +119,8 @@ model Payment {
   id             Int      @id @default(autoincrement())
   user_id        Int
   order_id       Int
-  payment_date   DateTime @default(now())
-  totalAmount    Int
+  payment_date   DateTime
+  total_amount    Int
   payment_method String
   payment_status String
 
