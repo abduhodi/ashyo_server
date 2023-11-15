@@ -26,6 +26,8 @@ import { AttributeGroupModule } from './attribute_group/attribute_group.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { JwtModule } from '@nestjs/jwt';
+import { AttributeGroupProductModelModule } from './attribute-group_product-model/attribute-group_product-model.module';
+import { AttributeGroupCategoryModule } from './attribute-group_category/attribute-group_category.module';
 
 @Module({
   imports: [
@@ -59,6 +61,8 @@ import { JwtModule } from '@nestjs/jwt';
     RatingModule,
     AuthModule,
     UserModule,
+    AttributeGroupProductModelModule,
+    AttributeGroupCategoryModule,
   ],
   controllers: [],
   providers: [],
