@@ -130,7 +130,7 @@ model Product_Info {
 
 model Views {
   id         Int      @id @default(autoincrement())
-  user_id    Int
+  user_id    String
   product_id Int
   liked      Boolean  @default(false)
   view_date  DateTime @default(now())

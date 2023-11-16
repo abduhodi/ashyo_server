@@ -9,12 +9,15 @@ import {
   HttpCode,
   HttpStatus,
   ParseIntPipe,
+  Req,
+  Res,
 } from '@nestjs/common';
 
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ViewsService } from './views.service';
 import { CreateViewDto } from './dto/create-view.dto';
 import { UpdateViewDto } from './dto/update-view.dto';
+import { Request, Response } from 'express';
 
 @ApiTags('Views')
 @Controller('views')
@@ -28,8 +31,12 @@ export class ViewsController {
   })
   @HttpCode(HttpStatus.CREATED)
   @Post()
-  create(@Body() createViewDto: CreateViewDto) {
-    return this.viewsService.create(createViewDto);
+  create(
+    @Body() createViewDto: CreateViewDto,
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return this.viewsService.create(createViewDto, req, res);
   }
 
   @ApiOperation({ summary: 'Get all views' })
