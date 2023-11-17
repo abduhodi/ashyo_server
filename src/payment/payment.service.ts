@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { Payment } from '@prisma/client';
+import { PAYMENT_STATUS } from '../enums/payment_status.enum';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreatePaymentDto } from './dto/create-payment.dto';
-import { PAYMENT_STATUS } from '../enums/payment_status.enum';
 import { UpdatePaymentDto } from './dto/update-payment.dto';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class PaymentService {
       });
       return item;
     } catch (error) {
-      throw new BadRequestException(error?.message); 
+      throw new BadRequestException(error?.message);
     }
   }
 
@@ -42,7 +42,7 @@ export class PaymentService {
         where: { id },
         include: {
           user: true,
-          order: true
+          order: true,
         },
       });
       return item;

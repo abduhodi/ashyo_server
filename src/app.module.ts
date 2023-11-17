@@ -3,6 +3,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AddressModule } from './address/address.module';
+import { AttributeGroupCategoryModule } from './attribute-group_category/attribute-group_category.module';
+import { AttributeGroupProductModelModule } from './attribute-group_product-model/attribute-group_product-model.module';
 import { AttributesModule } from './attributes/attributes.module';
 import { AttributeGroupModule } from './attribute_group/attribute_group.module';
 import { AuthModule } from './auth/auth.module';
@@ -24,9 +26,6 @@ import { RatingModule } from './rating/rating.module';
 import { SaleModule } from './sale/sale.module';
 import { SaleModelModule } from './sale_model/sale_model.module';
 import { UserModule } from './user/user.module';
-import { JwtModule } from '@nestjs/jwt';
-import { AttributeGroupProductModelModule } from './attribute-group_product-model/attribute-group_product-model.module';
-import { AttributeGroupCategoryModule } from './attribute-group_category/attribute-group_category.module';
 import { User_addressModule } from './user_address/user_address.module';
 import { ViewsModule } from './views/views.module';
 

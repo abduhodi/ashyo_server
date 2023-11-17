@@ -19,9 +19,10 @@ model Category {
 
   brands           Category_brand[]
   attribute_groups Attribute_Group[]
-  products Product[]
-  product_models Product_model[]
+  products         Product[]
+  product_models   Product_model[]
 
+  AttributeGroup_Category AttributeGroup_Category[]
 }
 
 model Brand {
@@ -32,22 +33,26 @@ model Brand {
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 
-  categories Category_brand[]
-  products Product[]
+  categories    Category_brand[]
+  products      Product[]
   product_model Product_model[]
 }
 
 model Product_model {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String
-  category_brand_id    Int
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  id                Int      @id @default(autoincrement())
+  name              String
+  description       String
+  category_brand_id Int
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
 
-  category_brand Category_brand? @relation(fields: [category_brand_id], references: [id])
+  category_brand   Category_brand?              @relation(fields: [category_brand_id], references: [id])
   attribute_groups AttribueGroup_ProductModel[]
-  products       Product[]
+  products         Product[]
+  Category         Category?                    @relation(fields: [categoryId], references: [id])
+  categoryId       Int?
+  Brand            Brand?                       @relation(fields: [brandId], references: [id])
+  brandId          Int?
 }
 
 model AttributeGroup_Category {
@@ -68,30 +73,33 @@ model Category_brand {
   brand    Brand?    @relation(fields: [brand_id], references: [id])
   category Category? @relation(fields: [category_id], references: [id])
 
-  sale_models    Sale_model[]
-  products Product[]
-  
+  sale_models Sale_model[]
+  products    Product[]
+
+  Product_model Product_model[]
 }
 
 model Attribute_Group {
-  id          Int      @id @default(autoincrement())
-  name        String   @unique
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  categories AttributeGroup_Category[]
+  categories     AttributeGroup_Category[]
   product_models AttribueGroup_ProductModel[]
 
   attributes Attribute[]
+  Category   Category?   @relation(fields: [categoryId], references: [id])
+  categoryId Int?
 }
 
 model AttribueGroup_ProductModel {
-  id Int @id @default(autoincrement())
+  id                 Int @id @default(autoincrement())
   attribute_group_id Int
-  product_model_id Int
+  product_model_id   Int
 
   attribute_group Attribute_Group @relation(fields: [attribute_group_id], references: [id])
-  product_model Product_model @relation(fields: [product_model_id], references: [id])
+  product_model   Product_model   @relation(fields: [product_model_id], references: [id])
 }
 
 model Attribute {
@@ -135,7 +143,7 @@ model Payment {
   user_id        Int
   order_id       Int
   payment_date   DateTime
-  total_amount    Int
+  total_amount   Int
   payment_method String
   payment_status String
 
@@ -189,8 +197,8 @@ model User_address {
   user_id    Int
   address_id Int
 
-  user       User?    @relation(fields: [user_id], references: [id])
-  address    Address? @relation(fields: [address_id], references: [id])
+  user    User?    @relation(fields: [user_id], references: [id])
+  address Address? @relation(fields: [address_id], references: [id])
 }
 
 model User_Orders {
@@ -203,9 +211,8 @@ model User_Orders {
   created_at   DateTime @default(now())
   updated_at   DateTime @updatedAt
 
-
-  user       User?    @relation(fields: [user_id], references: [id])
-  address    Address? @relation(fields: [address_id], references: [id])
+  user    User?    @relation(fields: [user_id], references: [id])
+  address Address? @relation(fields: [address_id], references: [id])
 
   Order_items Order_items[]
   payment     Payment[]
@@ -216,7 +223,6 @@ model Order_items {
   order_id   Int
   product_id Int
   quantity   Int
-  subtotal   Int
   created_at DateTime @default(now())
 
   order   User_Orders? @relation(fields: [order_id], references: [id])
@@ -238,13 +244,15 @@ model Product {
   brand         Brand?         @relation(fields: [brand_id], references: [id])
   product_model Product_model? @relation(fields: [product_model_id], references: [id])
 
-  product_info  Product_Info[]
-  product_media Product_media[]
-  cart_items    Cart_items[]
-  order_items   Order_items[]
-  comments      Comment[]
-  ratings       Rating[]
-  views         Views[]
+  product_info     Product_Info[]
+  product_media    Product_media[]
+  cart_items       Cart_items[]
+  order_items      Order_items[]
+  comments         Comment[]
+  ratings          Rating[]
+  views            Views[]
+  Category_brand   Category_brand? @relation(fields: [category_brandId], references: [id])
+  category_brandId Int?
 }
 
 model Product_media {

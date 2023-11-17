@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { Product } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateProductDto } from './dto/create-product.dto';
-import { Product } from '@prisma/client';
 import { UpdateProductDto } from './dto/update-product.dto';
 
 @Injectable()
@@ -13,20 +13,22 @@ export class ProductService {
   }
 
   async findAll() {
-    return this.prisma.product.findMany({include: {
-      product_info: {
-        select: {
-          attribute: {
-            select: {
-              name: true,
-              attribute_group: true,
-               
-            }
+    return this.prisma.product.findMany({
+      include: {
+        product_info: {
+          select: {
+            attribute: {
+              select: {
+                name: true,
+                attribute_group: true,
+              },
+            },
+            value: true,
           },
-          value: true
-        }
-      }
-    }});
+        },
+      },
+    });
+
     // return await this.prisma.product_model.findMany({include:{
     //   attribute_groups: true,
     //   products: true
