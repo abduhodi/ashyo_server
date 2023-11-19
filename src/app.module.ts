@@ -16,7 +16,7 @@ import { CommentModule } from './comment/comment.module';
 import { DistrictModule } from './district/district.module';
 import { OrderModule } from './order/order.module';
 import { Order_itemsModule } from './order_items/order_items.module';
-import { PaymentModule } from './payment/payment.module';
+import { PaymentModule } from './payment/payment.module'; 
 import { PositionModule } from './position/position.module';
 import { ProductModule } from './product/product.module';
 import { ProductInfoModule } from './product_info/product_info.module';

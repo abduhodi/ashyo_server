@@ -6,10 +6,16 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 
 @Injectable()
 export class OrderService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async create(data: CreateOrderDto): Promise<User_Orders> {
-    return this.prisma.user_Orders.create({ data });
+    try {
+      const createdOrder = await this.prisma.user_Orders.create({ data });
+      return createdOrder;
+    } catch (error) {
+      console.error('Error occurred while creating order:', error);
+      throw new Error('Could not create order'); 
+    }
   }
 
   async findAll(): Promise<User_Orders[]> {
@@ -23,7 +29,7 @@ export class OrderService {
       return this.prisma.user_Orders.findUnique({
         where: { id },
         include: {
-          address: true,
+          address: true,  
           Order_items: true,
           payment: true,
           user: true,

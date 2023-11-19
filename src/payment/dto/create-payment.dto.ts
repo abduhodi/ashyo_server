@@ -22,8 +22,9 @@ export class CreatePaymentDto {
     description: 'payment date of order',
     example: '2024-06-06',
   })
+  @IsString()
   @IsNotEmpty()
-  payment_date: Date;
+  payment_date: string;
 
   @ApiProperty({
     description: 'total amount of payment',
