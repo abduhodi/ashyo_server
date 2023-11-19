@@ -16,7 +16,4 @@ export class CreateOrder_itemsDto {
   @ApiProperty({ description: 'quantity of the product', example: '2' })
   quantity: number;
 
-  @IsInt()
-  @ApiProperty({ description: 'total quantity of the products', example: '2' })
-  subtotal: number;
 }

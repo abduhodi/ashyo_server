@@ -142,7 +142,7 @@ model Payment {
   id             Int      @id @default(autoincrement())
   user_id        Int
   order_id       Int
-  payment_date   DateTime
+  payment_date   String
   total_amount   Int
   payment_method String
   payment_status String
@@ -212,7 +212,6 @@ model Order_items {
   order_id   Int
   product_id Int
   quantity   Int
-  subtotal   Int
   created_at DateTime @default(now())
 
   order   User_Orders? @relation(fields: [order_id], references: [id])

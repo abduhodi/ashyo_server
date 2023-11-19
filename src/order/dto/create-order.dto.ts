@@ -26,7 +26,7 @@ export class CreateOrderDto {
   @IsString()
   @ApiProperty({
     description: 'status of the order',
-    example: 'delivered',
+    example: 'good',
   })
   status: string;
 }
