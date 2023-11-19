@@ -26,8 +26,9 @@ import { RatingModule } from './rating/rating.module';
 import { SaleModule } from './sale/sale.module';
 import { SaleModelModule } from './sale_model/sale_model.module';
 import { UserModule } from './user/user.module';
-import { User_addressModule } from './user_address/user_address.module';
+import { SMSApiModule } from './smsApi/smsApi.module';
 import { ViewsModule } from './views/views.module';
+import { User_addressModule } from './user_address/user_address.module';
 
 @Module({
   imports: [
@@ -61,6 +62,7 @@ import { ViewsModule } from './views/views.module';
     RatingModule,
     AuthModule,
     UserModule,
+    SMSApiModule,
     AttributeGroupProductModelModule,
     AttributeGroupCategoryModule,
   ],

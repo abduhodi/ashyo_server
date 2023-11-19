@@ -9,8 +9,12 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
-  login(@Body() loginDto: LoginAuthDto) {
-    return this.authService.login(loginDto);
+  login(
+    @Body() loginDto: LoginAuthDto,
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return this.authService.login(loginDto, req, res);
   }
 
   @Post('signup')
@@ -19,7 +23,7 @@ export class AuthController {
   }
 
   @Post('logout')
-  logout(@Req() req: Request, @Res() res: Response) {
+  logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     return this.authService.logout(req, res);
   }
 }

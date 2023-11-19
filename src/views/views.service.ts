@@ -3,24 +3,34 @@ import { Views } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateViewDto } from './dto/create-view.dto';
 import { UpdateViewDto } from './dto/update-view.dto';
+import { Cart_itemsService } from '../cart_items/cart_items.service';
+import { Request, Response } from 'express';
 
 @Injectable()
 export class ViewsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private cartService: Cart_itemsService,
+  ) {}
 
-  async create(data: CreateViewDto): Promise<Views> {
+  async create(
+    data: CreateViewDto,
+    req: Request,
+    res: Response,
+  ): Promise<Views> {
     try {
+      const user_id = await this.cartService.getId(req, res);
       const exist = await this.prisma.views.findFirst({
         where: {
           product_id: data.product_id,
-          user_id: data.user_id,
+          user_id,
         },
       });
       if (exist) {
         throw new BadRequestException('View is already exists');
       }
       const item = await this.prisma.views.create({
-        data: { ...data, view_date: new Date() },
+        data: { product_id: data.product_id, user_id, view_date: new Date() },
       });
       return item;
     } catch (error) {
@@ -84,6 +94,18 @@ export class ViewsService {
       return { message: 'delete success' };
     } catch (error) {
       throw new BadRequestException(error?.message);
+    }
+  }
+
+  async transferCart(user_id: string, session_id: string) {
+    try {
+      return this.prisma.views.updateMany({
+        where: { user_id: session_id },
+        data: { user_id },
+      });
+    } catch (error) {
+      console.log(error, 'transfer cart');
+      return false;
     }
   }
 }

@@ -8,7 +8,7 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -24,6 +24,7 @@ import { Public } from '../decorators/public.decorator';
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
+  @ApiBearerAuth()
   // @UseGuards(RoleGuard) // qachondir commentdan chiqariladi. hozir ishlayapti
   // @Roles([ROLE.ADMIN]) // qachondir commentdan chiqariladi. hozir ishlayapti
   @Post()

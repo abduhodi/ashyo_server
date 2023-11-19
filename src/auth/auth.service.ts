@@ -3,24 +3,33 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { UpdateAuthDto } from './dto/update-auth.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { LoginAuthDto } from './dto/login.auth';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { SignupAuthDto } from './dto/signup.auth';
 import { ROLE } from '../enums/roles.enum';
-
+import { SMSApiService } from '../smsApi/smsApi.service';
+import { Cart_itemsService } from '../cart_items/cart_items.service';
+import { v4 } from 'uuid';
+import { ViewsService } from '../views/views.service';
+const otpGenerator = require('otp-generator');
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService, private jwtService: JwtService) {}
+  constructor(
+    private prisma: PrismaService,
+    private jwtService: JwtService,
+    private smsService: SMSApiService,
+    private cartService: Cart_itemsService,
+    private viewService: ViewsService,
+  ) {}
 
   async signupUser(signupDto: SignupAuthDto) {
     try {
       const { phone, password, confirm_password } = signupDto;
       if (password !== confirm_password) {
-        throw new BadRequestException('Confiem password is not matched');
+        throw new BadRequestException('Confirm password is not matched');
       }
       const exist = await this.prisma.user.findFirst({ where: { phone } });
       if (exist) {
@@ -28,6 +37,13 @@ export class AuthService {
           'Phone number is already registered by another User',
         );
       }
+      const otp = otpGenerator.generate(4, {
+        upperCaseAlphabets: false,
+        specialChars: false,
+        lowerCaseAlphabets: false,
+        digits: true,
+      });
+      // await this.smsService.sendMessage(phone, otp);
       const hashed_password = await bcrypt.hash(password, 7);
       const user = await this.prisma.user.create({
         data: { phone, password: hashed_password, role: ROLE.USER },
@@ -39,7 +55,7 @@ export class AuthService {
     }
   }
 
-  async login(loginDto: LoginAuthDto) {
+  async login(loginDto: LoginAuthDto, req: Request, res: Response) {
     try {
       const user = await this.prisma.user.findFirst({
         where: { phone: loginDto.phone },
@@ -56,9 +72,26 @@ export class AuthService {
       const update = await this.prisma.user.update({
         where: { id: user.id },
         data: { token: hashed_token },
-        select: { id: true, first_name: true, last_name: true, phone: true },
+        select: {
+          id: true,
+          first_name: true,
+          last_name: true,
+          phone: true,
+        },
       });
-      return update;
+
+      let session_id: string;
+      const id = req.cookies['session_id'];
+      if (!id) {
+        session_id = v4();
+        res.cookie('session_id', session_id);
+      } else {
+        session_id = id;
+      }
+      await this.cartService.transferCart(String(user.id), session_id);
+      await this.viewService.transferCart(String(user.id), session_id);
+
+      return { ...update, token: tokens.access_token };
     } catch (error) {
       throw new BadRequestException(error.message);
     }
